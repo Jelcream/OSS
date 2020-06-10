@@ -4,4 +4,4 @@ keytool -exportcert -alias androiddebugkey -keystore “C:\Users\USER\.android\d
 바뀌면 안된다. 
 원격 저장소 데이터를 수동으로 바꿔줘야 한다. 
 
-update 1+1+1
+update 1+1
