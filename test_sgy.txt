@@ -5,6 +5,3 @@ keytool -exportcert -alias androiddebugkey -keystore “C:\Users\USER\.android\d
 원격 저장소 데이터를 수동으로 바꿔줘야 한다. 
 
 update 1+1+1
-업데이트합니다. 
-reverse 되나 확인 
-
