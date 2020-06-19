@@ -1,6 +1,6 @@
 package tm.project.local;
-import java.util.ArrayList;
-import java.util.SimpleTimeZone;
+import android.location.Location;
+
 
 public class LocalShop {
     private String name;
@@ -18,6 +18,9 @@ public class LocalShop {
     private String opening;
     private boolean delivery;
     private boolean parking;  //17번
+
+    private Location location;//distanceTo로 거리 구하기
+
 
     public LocalShop(String[] s){
         simAdd = s[1];
@@ -47,6 +50,9 @@ public class LocalShop {
         else delivery = true;
         if(!s[17].equals("Y")) parking = false;
         else parking = true;
+        location = new Location("LocalShop");
+        location.setLatitude(Latitude);
+        location.setLongitude(Longitude);
 
     }
     String getName(){
@@ -99,5 +105,8 @@ public class LocalShop {
     }
     boolean getParking(){
         return parking;
+    }
+    Location getLocation(){
+        return location;
     }
 }
