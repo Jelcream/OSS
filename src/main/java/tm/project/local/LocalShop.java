@@ -1,5 +1,6 @@
 package tm.project.local;
 import android.location.Location;
+import android.util.Log;
 
 
 public class LocalShop {
@@ -27,12 +28,14 @@ public class LocalShop {
         name = s[2];
         category1 = s[3];
         String[] temp = category1.split("-");
+        Log.v("tag", " "+temp.length);
         category1 = temp[0];
         if(temp.length == 2) category2 = temp[1];
         else category2 = null;
         address1 = s[4];
         address2 = s[5];
         phoneNumber = s[6];
+        Log.d("LocalShop",s[8]+" "+s[9]);
         postNumber = Integer.parseInt(s[7]);
         Latitude = Double.parseDouble(s[8]);
         Longitude = Double.parseDouble(s[9]);
