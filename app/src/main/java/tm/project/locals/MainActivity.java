@@ -1,5 +1,7 @@
 package tm.project.locals;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -27,10 +30,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    GridView gridView;
-
-    String[] names = {"농.축.수산물", "슈퍼", "매점", "음식점업", "건강식품", "유통급식업"};
-    int[] images = {R.drawable.item1, R.drawable.item2, R.drawable.item3, R.drawable.item4, R.drawable.item5, R.drawable.item6};
+    ListView listView;
+    String mTitle[] = {"농.축.수산물", "슈퍼", "음식점업", "건강식품","매점", "유통급식업"};
+    String mDescription[] = {"내 위치 주변 농.축.수산물업소를 확인하세요 !","내 위치 주변 슈퍼마켓을 확인하세요!","음료/디저트, 주류/주점, 한식, 중식, 일식, 양식, 반찬/도시락, 야식, 기타음식, 분식, 뷔폐, 그 외 아시아 음식점","내 위치 주변 건강식품업소를 확인하세요!","내 위치 주변 매점을 확인하세요!","내 위치 주변 위탁급식업소를 확인하세요!"};
+    int images[] = {R.drawable.vegetable, R.drawable.market, R.drawable.restaurant,R.drawable.health,R.drawable.market2,R.drawable.deliveryfood};
     ArrayList<LocalShop>[] LS;
     InputStream stream;
     @Override
@@ -44,19 +47,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gridView = findViewById(R.id.gridView);
 
-        CustomAdapter customAdapter = new CustomAdapter(names, images, this);
+        listView = findViewById(R.id.listView);
 
-        gridView.setAdapter(customAdapter);
+        MyAdapter adapter = new MyAdapter(this, mTitle, mDescription, images);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedName = names[i];
-                int selectedImage = images[i];
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 2) {
+                    String selectedName = mTitle[position];
+                    int selectedImage = images[position];
 
-                startActivity(new Intent(MainActivity.this,ClickedItemActivity.class).putExtra("name",selectedName).putExtra("image",selectedImage));
+                    //putExtra : 다른 Activity의 데이터 전달 , getExtra 로 데이터 전달받음
+                    startActivity(new Intent(MainActivity.this,ClickedItemActivity.class).putExtra("name",selectedName).putExtra("image",selectedImage));
+                }
+                else{
+                    //아이콘 클릭하면 지도로 넘어감
+                    Intent mapIntent = new Intent(getApplicationContext(), MapsActivity.class);
+                    startActivity(mapIntent);
+                }
             }
         });
         stream = getResources().openRawResource(R.raw.local3);
@@ -65,62 +78,35 @@ public class MainActivity extends AppCompatActivity {
         MapsActivity.LS = LS;
     }
 
-    public class CustomAdapter extends BaseAdapter{
-        private String[] imageNames;
-        private int[] imagesPhoto;
-        private Context context;
-        private LayoutInflater layoutInflater;
+    class MyAdapter extends ArrayAdapter<String> {
 
-        public CustomAdapter(String[] imageNames, int[] imagesPhoto, Context context) {
-            this.imageNames = imageNames;
-            this.imagesPhoto = imagesPhoto;
-            this.context = context;
-            this.layoutInflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-        }
+        Context context;
+        String rTitle[];
+        String rDescription[];
+        int rImgs[];
 
-        @Override
-        public int getCount() {
-            return imagesPhoto.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-
-            if(view == null){
-                view = layoutInflater.inflate(R.layout.row_items, viewGroup, false);
-
-            }
-
-            TextView tvName = view.findViewById(R.id.tvName);
-            ImageView imageView = view.findViewById(R.id.imageView);
-
-            tvName.setText(imageNames[i]);
-            imageView.setImageResource(imagesPhoto[i]);
-
-            return view;
+        MyAdapter (Context c, String title[], String description[], int imgs[]) {
+            super(c, R.layout.row, R.id.textView1, title);
+            this.context = c;
+            this.rTitle = title;
+            this.rDescription = description;
+            this.rImgs = imgs;
 
         }
-    }
-    public class AddActivity extends AppCompatActivity {
-
+        @NonNull
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = layoutInflater.inflate(R.layout.row, parent, false);
+            ImageView images = row.findViewById(R.id.image);
+            TextView myTitle = row.findViewById(R.id.textView1);
+            TextView myDescription = row.findViewById(R.id.textView2);
 
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            images.setImageResource(rImgs[position]);
+            myTitle.setText(rTitle[position]);
+            myDescription.setText(rDescription[position]);
 
+            return row;
 
         }
     }

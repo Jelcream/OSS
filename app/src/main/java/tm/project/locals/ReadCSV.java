@@ -32,10 +32,10 @@ public class ReadCSV {
             String[] temp;
             temp = reader.readNext();
             while((temp = reader.readNext())!=null){
-                Log.v("내용1", temp[0] +" "+temp[8] +" "+temp[9]);
+                //Log.v("내용1", temp[0] +" "+temp[8] +" "+temp[9]);
                 if(temp[7].equals("")||temp[8].equals("") || temp[9].equals("")) continue;
                 tmp = new LocalShop(temp);
-                Log.v("log", tmp.getName() + " " + tmp.getCategory1()+"!!");
+                //Log.v("log", tmp.getName() + " " + tmp.getCategory1()+"!!");
                 if(tmp.getCategory1().equals("농.축.수산물"))index =0;
                 else if(tmp.getCategory1().equals("슈퍼마켓"))index =1;
                 else if(tmp.getCategory1().equals("음식점업"))index = 2;
@@ -43,7 +43,7 @@ public class ReadCSV {
                 else if(tmp.getCategory1().equals("매점"))index = 4;
                 else if(tmp.getCategory1().equals("위탁급식업"))index=5;
                 LS[index].add(tmp);
-                Log.v("내용2", LS[index].get(LS[index].size()-1).getCategory1());
+                //Log.v("내용2", LS[index].get(LS[index].size()-1).getCategory1());
             }
         }catch(IOException e){
             e.printStackTrace();

@@ -100,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //location이 null일 수 있으니 null 체크는 해줘야 함
                 if (location != null) {
                     //location에 위도와 경도가 들어있다.
-                    Log.v("tagging", "로케이션 테스트");
+                    //Log.v("tagging", "로케이션 테스트");
                     LatLng mylocation = new LatLng(location.getLatitude(), location.getLongitude());//위도 경도 잡아주고
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
@@ -174,9 +174,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onInfoWindowClick(Marker marker) {
                 String strs;
                 for(LocalShop localx : LS[index]){
-                    Log.v("local test",localx.getName() +" "+index+" "+index2 + " "+LS[index].size());
-                    Log.v("local latLon", Double.toString(localx.getLatitude())+ " "+ Double.toString(localx.getLongitude()));
-                    Log.v("Marker", Double.toString(marker.getPosition().latitude)+" "+Double.toString(marker.getPosition().longitude));
+                    //Log.v("local test",localx.getName() +" "+index+" "+index2 + " "+LS[index].size());
+                   // Log.v("local latLon", Double.toString(localx.getLatitude())+ " "+ Double.toString(localx.getLongitude()));
+                   // Log.v("Marker", Double.toString(marker.getPosition().latitude)+" "+Double.toString(marker.getPosition().longitude));
                     //marker.getTitle().equals(localx.getName())
                     // (index != 2 || localx.getCategory2().equals(ClickedItemActivity.LIST_MENU4[index2]))
                     if(localx.getLocation().latitude == marker.getPosition().latitude &&localx.getLocation().longitude == marker.getPosition().longitude
@@ -185,8 +185,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         String park = "불가능";
                         if(localx.getDelivery()) ganun = "가능";
                         if(localx.getParking())park = "가능";
-                        strs =  " 업소명: " + localx.getName()+"\n\n 주소: "+localx.getAddress1()+"\n\n 연락처: "+ localx.getPhoneNumber()
+                        if(localx.getCategory2()!=null) strs =  " 업소명: " + localx.getName()+"\n\n 주소: "+localx.getAddress1()+"\n\n 연락처: "+ localx.getPhoneNumber()
                                 +"\n\n 분류: "+localx.getCategory1()+" - " +localx.getCategory2();
+                        else strs =  " 업소명: " + localx.getName()+"\n\n 주소: "+localx.getAddress1()+"\n\n 연락처: "+ localx.getPhoneNumber()
+                                +"\n\n 분류: "+localx.getCategory1();
+
                         if(localx.getExemplary()) strs = strs+ "\n\n 모범 음식점 주메뉴: " + localx.getMain_menu();
                         if(localx.getKind()) strs = strs+"\n\n 착한 가격 음식점 추천 메뉴: "+ localx.getRepItem() +"\n\n 착한 가격: "+localx.getChange()+"\n\n 영업 시간: " + localx.getDetail()
                                 +"\n\n 배달 가능 여부: "+ganun+"\n\n 주차 가능 여부: "+park;

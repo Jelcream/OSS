@@ -84,7 +84,7 @@ public class ClickedItemActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 String strText = (String) parent.getItemAtPosition(position);
-                Log.v("#####", strText);
+                //Log.v("#####", strText);
                 MapsActivity.index2 = 12;
                 if(index == 2){
                     for(int i = 0 ;i<LIST_MENU4.length;i++)if(LIST_MENU4[i].equals(strText)) MapsActivity.index2 = i;
