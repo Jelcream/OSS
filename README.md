@@ -26,3 +26,9 @@ Open Source Software
 데이터셋 전처리 각 데이터에 새로운 데이터 열 추가
 6월 17일 20:30에 회의.
 
+라이브러리
+commons-lang3-3.9.jar
+https://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.9
+
+opencsv-4.6.jar
+https://mvnrepository.com/artifact/com.opencsv/opencsv/4.6

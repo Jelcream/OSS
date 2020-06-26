@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/heart"
+        android:title="Search"
+        app:showAsAction="ifRoom"
+        app:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <item
+        android:title="Setting" />
+    <item
+        android:title="Share" />
+    ... />
+
+</menu>
